@@ -1,9 +1,17 @@
 body {
-    background-color: #f8f9fa;
+    background-color: #F5F2EA;
+    min-height: 100vh; 
+    display: flex; 
+    flex-direction: column;
+}
+
+.container {
+    max-width: 1000px;
 }
 
 .login-container {
     max-width: 400px;
+    width: 100%;
     margin: 100px auto;
     padding: 30px;
     background-color: white;
@@ -11,14 +19,51 @@ body {
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
-#login-btn {
-    width: 100%;
-    border-radius: 30px;
-    margin: 30px auto;
+.product-label {
+    text-align: center;
 }
 
-#google-btn {
-    background-color: white;
+h1 {
+    font-family: 'Poppins';
+    font-weight: 600;
+    /* text-shadow: 0 0 10px rgba(0,0,0,0.6); */
+    /* tambah shadow */
+}
+
+h4 {
+    font-family: 'Poppins';
+    font-size: small;
+}
+
+#login-btn {
+    width: 70%;
     border-radius: 30px;
+    margin: 30px auto;
+    display: block;
+}
+
+
+#google-btn {
+    border-radius: 10px;
+    padding: 0 20px 0 20px;
     margin: auto;
+}
+
+#copyright {
+    text-align: center;
+    /* margin-bottom: -200px; */
+}
+
+.separator {
+    display: block;
+    height: 1px;
+    background-color: black;
+    width: 90%;
+    margin: 20px auto;
+}
+
+#right-illustration {
+    transform: scaleX(-1);
+    margin-left: -400px;
+    margin-top: -100px;
 }
