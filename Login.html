@@ -3,60 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>login</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+    <title>ClAssign</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="Assets/css/login.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-</head>
 </head>
 <body>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
-    
-    <div class="d-md-block">
-        <img src="Assets/img/Education, people learning new skills.png" alt="Ilustrasi Kiri" class="img-fluid position-absolute top-0 end-50" id="left-illustration" style="max-width: 400px;">
-    </div>
-
-    <div class="container flex-grow-1 d-flex flex-md-row align-items-center justify-content-between">
-
-        <!-- Form Login -->
-        <div class="login-container d-flex justify-content-center">
-            <div class="ratio" style="--bs-aspect-ratio: 450px;">
-                <div>
-                    <div> <!-- tambahkan class (jika perlu)  -->
-                        <h1 class="product-label">ClAssign</h1>
-                        <p class="product-label">Welcome, make your asignment with ClAssign.</p>
+    <div class="container">
+        <hr style="width: 100%; margin: auto; transform: translateY(560px); height: 1px;">
+        <div class="row" style="height: 560px; margin: 20px;">
+            <!-- left-side -->
+            <div class="col">
+                <div class="row" style="margin-left: -50px; margin-top: 10px;">
+                    <div class="col" style="margin-left: -70px;">
+                        <h1 style="font-size: 20px; font-weight: 600;">
+                            ClAssign
+                        </h1>
+                        <hr style="width: 150px;">
+                        <p style="margin-top: -5px; font-size: small; font-weight: 600;">
+                            3rwork@classign.id
+                        </p>
                     </div>
-                    <div class="form-floating mb-3">
-                        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-                        <label for="floatingInput">Email address</label>
-                      </div>
-                      <div class="form-floating">
-                        <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-                        <label for="floatingPassword">Password</label>
-                      </div>
-                    <div> <!-- tambahkan class (jika perlu)  -->
-                        <button type="button" class="btn btn-primary btn-lgn " id="login-btn">Login</button>
-                        <figcaption class="blockquote-footer">or continue with</figcaption>
-                        <button class="btn btn-outline-dark w-40 gap-2" id="google-btn"><i class="bi bi-google me-2"></i>Google</button>
+                </div>
+                
+                <img src="Assets/img/Education, people learning new skills.png" width="400" style="transform: translate(70px) rotate(-25deg); margin-top: 80px;">
+            </div>
+            <!-- card form-login  -->
+            <div class="col">
+                <div class="row">
+                    <div class="col card-wrapper">
+                        <div class="card" >
+                            <div class="card-body">
+                                <h1 style="font-weight: 600; font-size: xx-large;">
+                                    ClAssign
+                                </h1>
+                                <p style="font-size: small; margin-top: 20px;">Welcome, make your assignment with ClAssign.</p>
+                                <div class="form-floating">
+                                    <input type="email" class="form-control" id="floatingInput" placeholder="email address">
+                                    <label for="floatingInput">email address</label>
+                                </div>
+                                <div class="form-floating">
+                                    <input type="password" class="form-control" id="floatingPassword" placeholder="password">
+                                    <label for="floatingPassword">password</label>
+                                </div>
+                                <button class="btn btn-primary btn-lgn">Login</button>
+                                <p class="blockquote-footer" style="text-align: left; margin-left: 20px;">or continue with</p>
+                                <button class="btn btn-outline-dark w-40 gap-2" id="google-btn"><i class="bi bi-google me-2"></i>Google</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-muted small" style="text-align: center; margin-top: 0px;">
+                    <br />Copyright ©3rwork2025 |&nbsp;<a href="#">Privacy Policy</a>
+                </p>
+            </div>
+            <!-- rigth side -->
+            <div class="col">
+                <div class="row">
+                    <div class="col">
+                        <img src="Assets/img/Learning foreign languages.png" width="300" style="transform: translate(160px) rotate(50deg);">
+                    </div>
+                    <div class="col">
+                        <img src="Assets/img/Young man working on a laptop.png" width="400" style="transform: translate(-140px) rotateY(180deg); margin-top: -80px;">
                     </div>
                 </div>
             </div>
         </div>
 
-        
-        <div class="d-md-block">
-            <img src="Assets/img/Young man working on a laptop.png" alt="Ilustrasi Kanan" class="img-fluid position-absolute" id="right-illustration" style="max-width: 400px;">
-        </div> 
-           
-        
     </div>
-
-    <div class="separator"></div>
-
-    <div class="footer text-center py-3">
-        <p class="text-muted small" id="copyright">Copyright ©3rwork2025 | <a href="#" class="text-decoration-none">Privacy Policy</a></p>
-    </div>
-    
 </body>
 </html>
