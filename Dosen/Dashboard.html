@@ -31,20 +31,34 @@
       <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
+
       <ul class="navbar-nav flex-grow-1 pe-3">
+        <form class="d-flex mt-3" role="search">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
         <li class="nav-item"><a class="nav-link active" href="#"><i class="bi bi-house-door"></i> Home</a></li>
         <li class="nav-item"><a class="nav-link active" href="#"><i class="bi bi-calendar-event"></i> Calendar</a></li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Enrolled</a>
-          <ul class="dropdown-menu"></ul>
-        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-bs-toggle="collapse" href="#teachingMenu" role="button" aria-expanded="false" aria-controls="teachingMenu">
+            Teaching <i class="bi bi-chevron-down"></i>
+          </a>
+          <div class="collapse" id="teachingMenu">
+            <ul class="list-group list-group-flush ps-3">
+              <li><a class="nav-link" href="#">Pemrograman Web - 4B</a></li>
+              <li><a class="nav-link" href="#">Pemrograman Web - 4A</a></li>
+              <li><a class="nav-link" href="#">Interaksi Manusia Komputer - 4B</a></li>
+              <li><a class="nav-link" href="#">Interaksi Manusia Komputer - 4A</a></li>
+              <li><a class="nav-link" href="#">Manajemen Basis Data - 4B</a></li>
+              <li><a class="nav-link" href="#">Manajemen Basis Data - 4A</a></li>
+              <li><a class="nav-link" href="#">Wawasan Persemenan - 4A</a></li>
+              <li><a class="nav-link" href="#">Wawasan Persemenan - 4B</a></li>
+            </ul>
+          </div>
+        </li>        
         <li class="nav-item"><a class="nav-link active" href="#"><i class="bi bi-archive"></i> Archive Classes</a></li>
         <li class="nav-item"><a class="nav-link active" href="#"><i class="bi bi-gear"></i> Settings</a></li>
       </ul>
-      <form class="d-flex mt-3" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
     </div>
   </div>
 

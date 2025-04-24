@@ -7,3 +7,7 @@ body {
 #offcanvasNavbarLabel {
   color: black;
 }
+
+.collapse.show + .next-menu {
+  margin-top: 10px;
+}
