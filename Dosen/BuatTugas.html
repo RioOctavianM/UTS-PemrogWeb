@@ -3,9 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BuatTugas</title>
+    <title>Buat Tugas</title>
+    <style>
+    </style>
 </head>
 <body>
-    
+
+    <form id="tugasForm">
+        <h2>Buat Tugas</h2>
+        <label for="judul">Judul Tugas:</label>
+        <input type="text" id="judul" name="judul" required>
+
+        <label for="deskripsi">Deskripsi:</label>
+        <textarea id="deskripsi" name="deskripsi" rows="4"></textarea>
+
+        <label for="tanggal">Tanggal Pengumpulan:</label>
+        <input type="date" id="tanggal" name="tanggal" required>
+
+        <label for="file">Lampiran:</label>
+        <input type="file" id="file" name="file">
+
+        <button type="submit">Kirim Tugas</button>
+    </form>
+
+    <script>
+        document.getElementById("tugasForm").addEventListener("submit", function(e) {
+            e.preventDefault();
+            const judul = document.getElementById("judul").value;
+            const deskripsi = document.getElementById("deskripsi").value;
+            const tanggal = document.getElementById("tanggal").value;
+
+            alert(`Tugas "${judul}" berhasil dibuat!\nDeadline: ${tanggal}`);
+        });
+    </script>
+
 </body>
 </html>
