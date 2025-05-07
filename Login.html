@@ -73,4 +73,37 @@
 
     </div>
 </body>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const loginButton = document.querySelector(".btn-lgn");
+        const emailInput = document.getElementById("floatingInput");
+        const passwordInput = document.getElementById("floatingPassword");
+    
+        loginButton.addEventListener("click", function (event) {
+            event.preventDefault();
+    
+            const email = emailInput.value.trim();
+            const password = passwordInput.value.trim();
+    
+            if (!email || !password) {
+                alert("Please fill in both email and password.");
+                return;
+            }
+
+            if (email === "admin@classign.id" && password === "password123") {
+                alert("Login successful!");
+                window.location.href = "dashboard.html";
+            } else {
+                alert("Invalid email or password.");
+            }
+        });
+ 
+        const googleBtn = document.getElementById("google-btn");
+        googleBtn.addEventListener("click", function () {
+            alert("Redirecting to Google OAuth...");
+        });
+    });
+    </script>
+    
 </html>
