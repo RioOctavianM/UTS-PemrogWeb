@@ -60,10 +60,26 @@
       </p>
 
       <div class="d-flex gap-4">
-        <button class="btn btn-outline-primary">Create Class</button>
-        <button class="btn btn-outline-primary">Join Class</button>
-      </div>
+        <button class="btn btn-outline-primary" id="join-student">Join As Student</button>
+        <button class="btn btn-outline-primary" id="join-teacher">Join As Teacher</button>
+      </div>          
 
     </main>
 </body>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("join-student").addEventListener("click", function () {
+      localStorage.setItem("userRole", "student");
+      window.location.href = "login.html";
+    });
+
+    document.getElementById("join-teacher").addEventListener("click", function () {
+      localStorage.setItem("userRole", "teacher");
+      window.location.href = "login.html";
+    });
+  });
+</script>
+
+
 </html>
