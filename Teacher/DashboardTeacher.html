@@ -42,16 +42,6 @@
             Teaching <i class="bi bi-chevron-down"></i>
           </a>
           <div class="collapse" id="teachingMenu">
-            <ul class="list-group list-group-flush ps-3">
-              <li><a class="nav-link" href="#">Pemrograman Web - 4B</a></li>
-              <li><a class="nav-link" href="#">Pemrograman Web - 4A</a></li>
-              <li><a class="nav-link" href="#">Interaksi Manusia Komputer - 4B</a></li>
-              <li><a class="nav-link" href="#">Interaksi Manusia Komputer - 4A</a></li>
-              <li><a class="nav-link" href="#">Manajemen Basis Data - 4B</a></li>
-              <li><a class="nav-link" href="#">Manajemen Basis Data - 4A</a></li>
-              <li><a class="nav-link" href="#">Wawasan Persemenan - 4A</a></li>
-              <li><a class="nav-link" href="#">Wawasan Persemenan - 4B</a></li>
-            </ul>
           </div>
         </li>
         <li class="nav-item"><a class="nav-link active" href="#"><i class="bi bi-archive"></i> Archive Classes</a></li>
@@ -66,9 +56,7 @@
         <button class="btn btn-primary" onclick="createClass()">
           <i class="bi bi-plus-circle"></i> Create Class
         </button>
-        <button class="btn btn-outline-secondary"><i class="bi bi-check2-square"></i> View Attendance</button>
-        <button class="btn btn-outline-info"><i class="bi bi-graph-up"></i> Class Analytics</button>
-        <button class="btn btn-outline-secondary" onclick="goBack()">
+        <button class="btn" onclick="goBack()">
           <i class="bi bi-arrow-left-circle"></i> Back
         </button>
       </div>
@@ -114,7 +102,7 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script>
+<script>
   const form = document.getElementById('createClassForm');
   const classListContainer = document.getElementById('classListContainer');
 
@@ -122,6 +110,7 @@
     const classes = JSON.parse(localStorage.getItem('classes')) || [];
     classes.forEach(cls => {
       displayClass(cls.name, cls.students, cls.group);
+      addToTeachingMenu(cls.name, cls.group);
     });
   });
 
@@ -137,6 +126,7 @@
     localStorage.setItem('classes', JSON.stringify(classes));
 
     displayClass(name, students, group);
+    addToTeachingMenu(name, group); // Tambahkan ke Teaching saat form disubmit
 
     form.reset();
     const modal = bootstrap.Modal.getInstance(document.getElementById('createClassModal'));
@@ -169,6 +159,8 @@
     const cardId = `${name}-${group}`.replace(/\s+/g, '-');
     const card = document.getElementById(cardId);
     if (card) card.remove();
+
+    removeFromTeachingMenu(name, group);
   }
 
   function createClass() {
@@ -177,9 +169,35 @@
   }
 
   function goBack() {
-   window.location.href = "../Login.html";
+    window.location.href = "../Login.html";
+  }
+
+  function addToTeachingMenu(name, group) {
+    const teachingMenu = document.getElementById('teachingMenu');
+    if (teachingMenu) {
+      const list = teachingMenu.querySelector('ul') || document.createElement('ul');
+      list.classList.add('list-group', 'list-group-flush', 'ps-3');
+      const newItem = document.createElement('li');
+      newItem.innerHTML = `<a class="nav-link" href="#">${name} - ${group}</a>`;
+      list.appendChild(newItem);
+
+      if (!teachingMenu.querySelector('ul')) {
+        teachingMenu.appendChild(list);
+      }
+    }
+  }
+
+  function removeFromTeachingMenu(name, group) {
+    const teachingMenu = document.getElementById('teachingMenu');
+    const links = teachingMenu.querySelectorAll('a.nav-link');
+    links.forEach(link => {
+      if (link.textContent.trim() === `${name} - ${group}`) {
+        link.parentElement.remove();
+      }
+    });
   }
 </script>
+
 
 </body>
 </html>
