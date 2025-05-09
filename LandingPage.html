@@ -60,25 +60,18 @@
       </p>
 
       <div class="d-flex gap-4">
-        <button class="btn btn-outline-primary" id="join-student">Join As Student</button>
-        <button class="btn btn-outline-primary" id="join-teacher">Join As Teacher</button>
+        <button onclick="setRoleAndRedirect('student')" class="btn btn-outline-primary">Join as Student</button>
+        <button onclick="setRoleAndRedirect('teacher')" class="btn btn-outline-primary">Join as Teacher</button>
       </div>          
 
     </main>
 </body>
 
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    document.getElementById("join-student").addEventListener("click", function () {
-      localStorage.setItem("userRole", "student");
-      window.location.href = "login.html";
-    });
-
-    document.getElementById("join-teacher").addEventListener("click", function () {
-      localStorage.setItem("userRole", "teacher");
-      window.location.href = "login.html";
-    });
-  });
+ function setRoleAndRedirect(role) {
+    localStorage.setItem("userRole", role);
+    window.location.href = "Login.html";
+  }
 </script>
 
 
