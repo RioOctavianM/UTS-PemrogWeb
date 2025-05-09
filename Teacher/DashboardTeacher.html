@@ -68,15 +68,16 @@
         </button>
         <button class="btn btn-outline-secondary"><i class="bi bi-check2-square"></i> View Attendance</button>
         <button class="btn btn-outline-info"><i class="bi bi-graph-up"></i> Class Analytics</button>
+        <button class="btn btn-outline-secondary" onclick="goBack()">
+          <i class="bi bi-arrow-left-circle"></i> Back
+        </button>
       </div>
     </div>
 
     <div class="d-flex flex-wrap gap-3" id="classListContainer">
-      <!-- Kartu kelas akan ditambahkan di sini -->
     </div>
   </div>
 
-  <!-- Modal Create Class -->
   <div class="modal fade" id="createClassModal" tabindex="-1" aria-labelledby="createClassModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content shadow">
@@ -114,66 +115,71 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script>
-    const form = document.getElementById('createClassForm');
-    const classListContainer = document.getElementById('classListContainer');
+  const form = document.getElementById('createClassForm');
+  const classListContainer = document.getElementById('classListContainer');
 
-    window.addEventListener('DOMContentLoaded', () => {
-      const classes = JSON.parse(localStorage.getItem('classes')) || [];
-      classes.forEach(cls => {
-        displayClass(cls.name, cls.students, cls.group);
-      });
+  window.addEventListener('DOMContentLoaded', () => {
+    const classes = JSON.parse(localStorage.getItem('classes')) || [];
+    classes.forEach(cls => {
+      displayClass(cls.name, cls.students, cls.group);
     });
+  });
 
-    form.addEventListener('submit', function (event) {
-      event.preventDefault();
+  form.addEventListener('submit', function (event) {
+    event.preventDefault();
 
-      const name = document.getElementById('className').value;
-      const students = document.getElementById('studentsCount').value;
-      const group = document.getElementById('classGroup').value;
+    const name = document.getElementById('className').value;
+    const students = document.getElementById('studentsCount').value;
+    const group = document.getElementById('classGroup').value;
 
-      let classes = JSON.parse(localStorage.getItem('classes')) || [];
-      classes.push({ name, students, group });
-      localStorage.setItem('classes', JSON.stringify(classes));
+    let classes = JSON.parse(localStorage.getItem('classes')) || [];
+    classes.push({ name, students, group });
+    localStorage.setItem('classes', JSON.stringify(classes));
 
-      displayClass(name, students, group);
+    displayClass(name, students, group);
 
-      form.reset();
-      const modal = bootstrap.Modal.getInstance(document.getElementById('createClassModal'));
-      modal.hide();
-    });
+    form.reset();
+    const modal = bootstrap.Modal.getInstance(document.getElementById('createClassModal'));
+    modal.hide();
+  });
 
-    function displayClass(name, students, group) {
-      const id = `${name}-${group}`.replace(/\s+/g, '-');
-      const classCardHTML = `
-        <div class="card" style="width: 18rem;" id="${id}">
-          <img src="https://via.placeholder.com/286x160?text=Class+Image" class="card-img-top" alt="${name}">
-          <div class="card-body">
-            <h5 class="card-title text-primary">${name}</h5>
-            <p class="card-text">${students} Students • ${group}</p>
-            <div class="d-flex justify-content-between">
-              <a href="#" class="btn btn-outline-primary">View Class</a>
-              <button class="btn btn-outline-danger btn-sm" onclick="deleteClass('${name}', '${group}')">Delete</button>
-            </div>
+  function displayClass(name, students, group) {
+    const id = `${name}-${group}`.replace(/\s+/g, '-');
+    const classCardHTML = `
+      <div class="card" style="width: 18rem;" id="${id}">
+        <img src="https://via.placeholder.com/286x160?text=Class+Image" class="card-img-top" alt="${name}">
+        <div class="card-body">
+          <h5 class="card-title text-primary">${name}</h5>
+          <p class="card-text">${students} Students • ${group}</p>
+          <div class="d-flex justify-content-between">
+            <a href="#" class="btn btn-outline-primary">View Class</a>
+            <button class="btn btn-outline-danger btn-sm" onclick="deleteClass('${name}', '${group}')">Delete</button>
           </div>
         </div>
-      `;
-      classListContainer.insertAdjacentHTML('beforeend', classCardHTML);
-    }
+      </div>
+    `;
+    classListContainer.insertAdjacentHTML('beforeend', classCardHTML);
+  }
 
-    function deleteClass(name, group) {
-      let classes = JSON.parse(localStorage.getItem('classes')) || [];
-      classes = classes.filter(cls => !(cls.name === name && cls.group === group));
-      localStorage.setItem('classes', JSON.stringify(classes));
+  function deleteClass(name, group) {
+    let classes = JSON.parse(localStorage.getItem('classes')) || [];
+    classes = classes.filter(cls => !(cls.name === name && cls.group === group));
+    localStorage.setItem('classes', JSON.stringify(classes));
 
-      const cardId = `${name}-${group}`.replace(/\s+/g, '-');
-      const card = document.getElementById(cardId);
-      if (card) card.remove();
-    }
+    const cardId = `${name}-${group}`.replace(/\s+/g, '-');
+    const card = document.getElementById(cardId);
+    if (card) card.remove();
+  }
 
-    function createClass() {
-      const modal = new bootstrap.Modal(document.getElementById('createClassModal'));
-      modal.show();
-    }
-  </script>
+  function createClass() {
+    const modal = new bootstrap.Modal(document.getElementById('createClassModal'));
+    modal.show();
+  }
+
+  function goBack() {
+   window.location.href = "../Login.html";
+  }
+</script>
+
 </body>
 </html>
