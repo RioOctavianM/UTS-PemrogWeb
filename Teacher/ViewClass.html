@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>View Class - ClAssign</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    .banner {
+      background-color: #f4a261;
+      color: white;
+      padding: 2rem;
+      border-radius: 0.5rem;
+      background-image: url('https://ssl.gstatic.com/classroom/themes/img_backtoschool.jpg');
+      background-size: cover;
+      background-position: center;
+    }
+    .tab-nav a {
+      margin-right: 1rem;
+    }
+  </style>
+</head>
+<body style="background-color: #f5f2ea;">
+  <div class="container-fluid p-0">
+    <div class="banner text-white d-flex justify-content-between align-items-center">
+      <div>
+        <h2 id="className">Class Name</h2>
+        <p id="groupName">Group</p>
+      </div>
+      <button class="btn btn-light btn-sm">Customize</button>
+    </div>
+
+    <div class="container mt-3">
+      <div class="d-flex tab-nav border-bottom pb-2 mb-3">
+        <a href="#" class="text-decoration-none fw-bold">Stream</a>
+        <a href="#" class="text-decoration-none text-muted">Classwork</a>
+        <a href="#" class="text-decoration-none text-muted">People</a>
+        <a href="#" class="text-decoration-none text-muted">Grades</a>
+      </div>
+
+      <div class="mb-4">
+        <p><strong>Class code:</strong> <span id="classCode">kyhptwd2</span></p>
+        <div class="mb-3">
+          <input class="form-control" placeholder="Announce something to your class" />
+        </div>
+      </div>
+
+      <button class="btn btn-primary mb-3" id="addAssignmentBtn">+ Add Assignment</button>
+
+<div id="assignmentForm" class="bg-light p-3 rounded mb-4" style="display: none;">
+  <h5>Add New Assignment</h5>
+  <input type="text" id="assignmentTitle" class="form-control mb-2" placeholder="Assignment Title" />
+  <textarea id="assignmentDesc" class="form-control mb-2" placeholder="Assignment Description"></textarea>
+  <button class="btn btn-success" id="saveAssignment">Save</button>
+</div>
+
+<div id="assignmentList">
+  <!-- Assignments will appear here -->
+</div>
+
+
+      <div class="bg-white rounded p-3 shadow-sm">
+        <p>This is where you can talk to your class</p>
+        <p class="text-muted">Use the stream to share announcements, post assignments, and respond to student questions.</p>
+      </div>
+    </div>
+  </div>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const classId = params.get('classId') || "UnknownClass";
+  const group = params.get('group') || "-";
+
+  document.getElementById('className').textContent = classId;
+  document.getElementById('groupName').textContent = "Group: " + group;
+
+  const classCode = Math.random().toString(36).substring(2, 9);
+  document.getElementById('classCode').textContent = classCode;
+
+  const assignmentKey = `assignments-${classId}`;
+
+  document.getElementById("addAssignmentBtn").addEventListener("click", () => {
+    const form = document.getElementById("assignmentForm");
+    form.style.display = form.style.display === "none" ? "block" : "none";
+  });
+
+  document.getElementById("saveAssignment").addEventListener("click", () => {
+    const title = document.getElementById("assignmentTitle").value.trim();
+    const desc = document.getElementById("assignmentDesc").value.trim();
+    if (!title) return alert("Assignment title is required.");
+
+    const assignment = { title, desc };
+    const existing = JSON.parse(localStorage.getItem(assignmentKey)) || [];
+    existing.push(assignment);
+    localStorage.setItem(assignmentKey, JSON.stringify(existing));
+
+    loadAssignments();
+    document.getElementById("assignmentForm").style.display = "none";
+    document.getElementById("assignmentTitle").value = "";
+    document.getElementById("assignmentDesc").value = "";
+  });
+
+  function loadAssignments() {
+    const container = document.getElementById("assignmentList");
+    container.innerHTML = "<h5>Assignments</h5>";
+    const assignments = JSON.parse(localStorage.getItem(assignmentKey)) || [];
+
+    if (assignments.length === 0) {
+      container.innerHTML += "<p class='text-muted'>No assignments yet.</p>";
+    } else {
+      assignments.forEach((a) => {
+        container.innerHTML += `
+          <div class="card mb-2">
+            <div class="card-body">
+              <h6>${a.title}</h6>
+              <p>${a.desc}</p>
+            </div>
+          </div>`;
+      });
+    }
+  }
+
+  loadAssignments();
+</script>
+
+
+</body>
+</html>

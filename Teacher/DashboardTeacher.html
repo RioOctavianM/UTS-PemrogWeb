@@ -134,22 +134,27 @@
   });
 
   function displayClass(name, students, group) {
-    const id = `${name}-${group}`.replace(/\s+/g, '-');
-    const classCardHTML = `
-      <div class="card" style="width: 18rem;" id="${id}">
-        <img src="https://via.placeholder.com/286x160?text=Class+Image" class="card-img-top" alt="${name}">
-        <div class="card-body">
-          <h5 class="card-title text-primary">${name}</h5>
-          <p class="card-text">${students} Students • ${group}</p>
-          <div class="d-flex justify-content-between">
-            <a href="#" class="btn btn-outline-primary">View Class</a>
-            <button class="btn btn-outline-danger btn-sm" onclick="deleteClass('${name}', '${group}')">Delete</button>
-          </div>
+  const id = `${name}-${group}`.replace(/\s+/g, '-');
+  const classCardHTML = `
+    <div class="card" style="width: 18rem;" id="${id}">
+      <div class="card-body">
+        <h5 class="card-title text-primary">${name}</h5>
+        <p class="card-text">${students} Students • ${group}</p>
+        <div class="d-flex justify-content-between">
+          <button class="btn btn-outline-success btn-sm" onclick="ViewClass('${name}', '${group}')">View Class</button>
+          <button class="btn btn-outline-danger btn-sm" onclick="deleteClass('${name}', '${group}')">Delete</button>
         </div>
       </div>
-    `;
-    classListContainer.insertAdjacentHTML('beforeend', classCardHTML);
-  }
+    </div>
+  `;
+  classListContainer.insertAdjacentHTML('beforeend', classCardHTML);
+}
+
+function ViewClass(name, group) {
+
+  window.location.href = `ViewClass.html?name=${encodeURIComponent(name)}&group=${encodeURIComponent(group)}`;
+}
+
 
   function deleteClass(name, group) {
     let classes = JSON.parse(localStorage.getItem('classes')) || [];
@@ -195,6 +200,10 @@
         link.parentElement.remove();
       }
     });
+  }
+
+  function ViewClass() {
+   window.location.href = "ViewClass.html";
   }
 </script>
 
