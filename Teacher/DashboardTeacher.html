@@ -21,6 +21,10 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <a class="navbar-brand text-dark fw-bold" href="#">ClAssign</a>
+      <div class="d-flex align-items-center">
+        <span class="me-3 text-dark fw-bold">Teacher</span>
+        <a href="../Login.html" class="btn btn-outline-secondary btn-sm">Logout</a>
+      </div>
     </div>
   </nav>
 
@@ -42,6 +46,7 @@
             Teaching <i class="bi bi-chevron-down"></i>
           </a>
           <div class="collapse" id="teachingMenu">
+            <ul class="list-group list-group-flush ps-3" id="teachingMenuList"></ul>
           </div>
         </li>
         <li class="nav-item"><a class="nav-link active" href="#"><i class="bi bi-archive"></i> Archive Classes</a></li>
@@ -61,6 +66,8 @@
         </button>
       </div>
     </div>
+
+    <p id="classCount" class="text-muted">Total Classes: 0</p>
 
     <div class="d-flex flex-wrap gap-3" id="classListContainer">
     </div>
@@ -102,111 +109,112 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-  const form = document.getElementById('createClassForm');
-  const classListContainer = document.getElementById('classListContainer');
+  <script>
+    const form = document.getElementById('createClassForm');
+    const classListContainer = document.getElementById('classListContainer');
 
-  window.addEventListener('DOMContentLoaded', () => {
-    const classes = JSON.parse(localStorage.getItem('classes')) || [];
-    classes.forEach(cls => {
-      displayClass(cls.name, cls.students, cls.group);
-      addToTeachingMenu(cls.name, cls.group);
+    window.addEventListener('DOMContentLoaded', () => {
+      const classes = JSON.parse(localStorage.getItem('classes')) || [];
+      classes.forEach(cls => {
+        displayClass(cls.name, cls.students, cls.group);
+        addToTeachingMenu(cls.name, cls.group);
+      });
+      updateClassCount();
     });
-  });
 
-  form.addEventListener('submit', function (event) {
-    event.preventDefault();
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
 
-    const name = document.getElementById('className').value;
-    const students = document.getElementById('studentsCount').value;
-    const group = document.getElementById('classGroup').value;
+      const name = document.getElementById('className').value;
+      const students = document.getElementById('studentsCount').value;
+      const group = document.getElementById('classGroup').value;
 
-    let classes = JSON.parse(localStorage.getItem('classes')) || [];
-    classes.push({ name, students, group });
-    localStorage.setItem('classes', JSON.stringify(classes));
+      let classes = JSON.parse(localStorage.getItem('classes')) || [];
 
-    displayClass(name, students, group);
-    addToTeachingMenu(name, group); // Tambahkan ke Teaching saat form disubmit
+      const exists = classes.some(cls => cls.name === name && cls.group === group);
+      if (exists) {
+        alert('Class with this name and group already exists.');
+        return;
+      }
 
-    form.reset();
-    const modal = bootstrap.Modal.getInstance(document.getElementById('createClassModal'));
-    modal.hide();
-  });
+      classes.push({ name, students, group });
+      localStorage.setItem('classes', JSON.stringify(classes));
 
-  function displayClass(name, students, group) {
-  const id = `${name}-${group}`.replace(/\s+/g, '-');
-  const classCardHTML = `
-    <div class="card" style="width: 18rem;" id="${id}">
-      <div class="card-body">
-        <h5 class="card-title text-primary">${name}</h5>
-        <p class="card-text">${students} Students • ${group}</p>
-        <div class="d-flex justify-content-between">
-          <button class="btn btn-outline-success btn-sm" onclick="ViewClass('${name}', '${group}')">View Class</button>
-          <button class="btn btn-outline-danger btn-sm" onclick="deleteClass('${name}', '${group}')">Delete</button>
+      displayClass(name, students, group);
+      addToTeachingMenu(name, group);
+      updateClassCount();
+
+      form.reset();
+      const modal = bootstrap.Modal.getInstance(document.getElementById('createClassModal'));
+      modal.hide();
+    });
+
+    function displayClass(name, students, group) {
+      const id = `${name}-${group}`.replace(/\s+/g, '-');
+      const classCardHTML = `
+        <div class="card" style="width: 18rem;" id="${id}">
+          <div class="card-body">
+            <h5 class="card-title text-primary">${name}</h5>
+            <p class="card-text">${students} Students • ${group}</p>
+            <div class="d-flex justify-content-between">
+              <button class="btn btn-outline-success btn-sm" onclick="ViewClass('${name}', '${group}')">View Class</button>
+              <button class="btn btn-outline-danger btn-sm" onclick="deleteClass('${name}', '${group}')">Delete</button>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-  `;
-  classListContainer.insertAdjacentHTML('beforeend', classCardHTML);
-}
+      `;
+      classListContainer.insertAdjacentHTML('beforeend', classCardHTML);
+    }
 
-function ViewClass(name, group) {
+    function ViewClass(name, group) {
+      window.location.href = `ViewClass.html?name=${encodeURIComponent(name)}&group=${encodeURIComponent(group)}`;
+    }
 
-  window.location.href = `ViewClass.html?name=${encodeURIComponent(name)}&group=${encodeURIComponent(group)}`;
-}
+    function deleteClass(name, group) {
+      let classes = JSON.parse(localStorage.getItem('classes')) || [];
+      classes = classes.filter(cls => !(cls.name === name && cls.group === group));
+      localStorage.setItem('classes', JSON.stringify(classes));
 
+      const cardId = `${name}-${group}`.replace(/\s+/g, '-');
+      const card = document.getElementById(cardId);
+      if (card) card.remove();
 
-  function deleteClass(name, group) {
-    let classes = JSON.parse(localStorage.getItem('classes')) || [];
-    classes = classes.filter(cls => !(cls.name === name && cls.group === group));
-    localStorage.setItem('classes', JSON.stringify(classes));
+      removeFromTeachingMenu(name, group);
+      updateClassCount();
+    }
 
-    const cardId = `${name}-${group}`.replace(/\s+/g, '-');
-    const card = document.getElementById(cardId);
-    if (card) card.remove();
+    function createClass() {
+      const modal = new bootstrap.Modal(document.getElementById('createClassModal'));
+      modal.show();
+    }
 
-    removeFromTeachingMenu(name, group);
-  }
+    function goBack() {
+      window.location.href = "../Login.html";
+    }
 
-  function createClass() {
-    const modal = new bootstrap.Modal(document.getElementById('createClassModal'));
-    modal.show();
-  }
-
-  function goBack() {
-    window.location.href = "../Login.html";
-  }
-
-  function addToTeachingMenu(name, group) {
-    const teachingMenu = document.getElementById('teachingMenu');
-    if (teachingMenu) {
-      const list = teachingMenu.querySelector('ul') || document.createElement('ul');
-      list.classList.add('list-group', 'list-group-flush', 'ps-3');
-      const newItem = document.createElement('li');
-      newItem.innerHTML = `<a class="nav-link" href="#">${name} - ${group}</a>`;
-      list.appendChild(newItem);
-
-      if (!teachingMenu.querySelector('ul')) {
-        teachingMenu.appendChild(list);
+    function addToTeachingMenu(name, group) {
+      const teachingMenuList = document.getElementById('teachingMenuList');
+      if (teachingMenuList) {
+        const newItem = document.createElement('li');
+        newItem.innerHTML = `<a class="nav-link" href="#">${name} - ${group}</a>`;
+        teachingMenuList.appendChild(newItem);
       }
     }
-  }
 
-  function removeFromTeachingMenu(name, group) {
-    const teachingMenu = document.getElementById('teachingMenu');
-    const links = teachingMenu.querySelectorAll('a.nav-link');
-    links.forEach(link => {
-      if (link.textContent.trim() === `${name} - ${group}`) {
-        link.parentElement.remove();
-      }
-    });
-  }
+    function removeFromTeachingMenu(name, group) {
+      const links = document.querySelectorAll('#teachingMenuList a.nav-link');
+      links.forEach(link => {
+        if (link.textContent.trim() === `${name} - ${group}`) {
+          link.parentElement.remove();
+        }
+      });
+    }
 
-  function ViewClass() {
-   window.location.href = "ViewClass.html";
-  }
-</script>
-
+    function updateClassCount() {
+      const classes = JSON.parse(localStorage.getItem('classes')) || [];
+      document.getElementById('classCount').textContent = `Total Classes: ${classes.length}`;
+    }
+  </script>
 
 </body>
 </html>
