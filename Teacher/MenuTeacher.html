@@ -22,17 +22,25 @@
       box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     }
 
-    .tab-nav a {
+    .tab-link {
       margin-right: 1.5rem;
       padding-bottom: 0.3rem;
+      text-decoration: none;
+      color: #444;
+      font-weight: 500;
       border-bottom: 2px solid transparent;
-      transition: all 0.3s ease;
+      transition: all 0.2s ease;
     }
 
-    .tab-nav a.active,
-    .tab-nav a:hover {
+    .tab-link:hover {
+      color: #f4a261;
       border-bottom: 2px solid #f4a261;
-      color: #f4a261 !important;
+    }
+
+    .tab-link.active {
+      color: #f4a261;
+      font-weight: 600;
+      border-bottom: 2px solid #f4a261;
     }
 
     #assignmentForm {
@@ -61,57 +69,35 @@
     </div>
 
     <div class="container mt-4">
-      <!-- Tombol Back -->
-      <button onclick="history.back()" class="btn btn-secondary mb-3">← Back</button>
-
-      <!-- Tab Navigation -->
-      <div class="d-flex tab-nav border-bottom pb-2 mb-3">
-        <a href="#" class="fw-bold active text-decoration-none tab-link" data-target="stream">Stream</a>
-        <a href="#" class="text-muted text-decoration-none tab-link" data-target="classwork">Classwork</a>
-        <a href="#" class="text-muted text-decoration-none tab-link" data-target="people">People</a>
-        <a href="#" class="text-muted text-decoration-none tab-link" data-target="grades">Grades</a>
+      <!-- Navigasi Tab -->
+      <div class="d-flex border-bottom pb-2 mb-3">
+        <a href="#" class="tab-link active">Stream</a>
+        <a href="#" class="tab-link">Classwork</a>
+        <a href="#" class="tab-link">People</a>
+        <a href="#" class="tab-link">Grades</a>
       </div>
 
-      <!-- STREAM TAB -->
-      <div id="tab-stream" class="tab-content">
-        <div class="mb-4">
-          <p><strong>Class code:</strong> <span id="classCode">kyhptwd2</span></p>
-          <input class="form-control mb-3" placeholder="Announce something to your class" />
-        </div>
-
-        <button class="btn btn-outline-primary mb-3" id="addAssignmentBtn">+ Add Assignment</button>
-
-        <div id="assignmentForm" class="bg-white p-4 rounded shadow-sm mb-4" style="display: none;">
-          <h5 class="mb-3">Add New Assignment</h5>
-          <input type="text" id="assignmentTitle" class="form-control mb-2" placeholder="Assignment Title" />
-          <textarea id="assignmentDesc" class="form-control mb-3" rows="3" placeholder="Assignment Description"></textarea>
-          <button class="btn btn-success" id="saveAssignment">Save Assignment</button>
-        </div>
-
-        <div id="assignmentList" class="mb-4"></div>
-
-        <div class="bg-white rounded p-4 shadow-sm">
-          <h6>Class Stream</h6>
-          <p class="text-muted mb-0">Use the stream to share announcements, post assignments, and respond to student questions.</p>
-        </div>
+      <div class="mb-4">
+        <p><strong>Class code:</strong> <span id="classCode">-</span></p>
+        <input class="form-control mb-3" placeholder="Announce something to your class" />
       </div>
 
-      <!-- CLASSWORK TAB -->
-      <div id="tab-classwork" class="tab-content" style="display: none;">
-        <h5>Classwork</h5>
-        <p class="text-muted">Content for Classwork tab...</p>
+      <button class="btn btn-outline-primary mb-3" id="addAssignmentBtn">+ Add Assignment</button>
+
+      <div id="assignmentForm" class="bg-white p-4 rounded shadow-sm mb-4" style="display: none;">
+        <h5 class="mb-3">Add New Assignment</h5>
+        <input type="text" id="assignmentTitle" class="form-control mb-2" placeholder="Assignment Title" />
+        <textarea id="assignmentDesc" class="form-control mb-3" rows="3" placeholder="Assignment Description"></textarea>
+        <button class="btn btn-success" id="saveAssignment">Save Assignment</button>
       </div>
 
-      <!-- PEOPLE TAB -->
-      <div id="tab-people" class="tab-content" style="display: none;">
-        <h5>People</h5>
-        <p class="text-muted">List of students and teacher...</p>
+      <div id="assignmentList" class="mb-4">
+        <!-- Assignment cards will be inserted here -->
       </div>
 
-      <!-- GRADES TAB -->
-      <div id="tab-grades" class="tab-content" style="display: none;">
-        <h5>Grades</h5>
-        <p class="text-muted">Grade table or summary...</p>
+      <div class="bg-white rounded p-4 shadow-sm">
+        <h6>Class Stream</h6>
+        <p class="text-muted mb-0">Use the stream to share announcements, post assignments, and respond to student questions.</p>
       </div>
     </div>
   </div>
@@ -124,15 +110,17 @@
     document.getElementById('className').textContent = classId;
     document.getElementById('groupName').textContent = "Group: " + group;
 
-    const classCodeKey = `classCode-${classId}-${group}`;
-    let classCode = localStorage.getItem(classCodeKey);
+    // Simpan dan gunakan class code tetap per classId
+    const codeKey = `classcode-${classId}`;
+    let classCode = localStorage.getItem(codeKey);
     if (!classCode) {
       classCode = Math.random().toString(36).substring(2, 9);
-      localStorage.setItem(classCodeKey, classCode);
+      localStorage.setItem(codeKey, classCode);
     }
     document.getElementById('classCode').textContent = classCode;
 
-    const assignmentKey = `assignments-${classId}-${group}`;
+    const assignmentKey = `assignments-${classId}`;
+
     const addBtn = document.getElementById("addAssignmentBtn");
     const formDiv = document.getElementById("assignmentForm");
     const saveBtn = document.getElementById("saveAssignment");
@@ -165,7 +153,7 @@
       if (assignments.length === 0) {
         container.innerHTML += "<p class='text-muted'>No assignments yet.</p>";
       } else {
-        assignments.forEach((a) => {
+        assignments.forEach((a, i) => {
           container.innerHTML += `
             <div class="card card-assignment mb-3 shadow-sm">
               <div class="card-body">
@@ -179,24 +167,13 @@
 
     loadAssignments();
 
-    // TAB SWITCHING
-    const tabLinks = document.querySelectorAll('.tab-link');
-    const tabContents = {
-      stream: document.getElementById('tab-stream'),
-      classwork: document.getElementById('tab-classwork'),
-      people: document.getElementById('tab-people'),
-      grades: document.getElementById('tab-grades'),
-    };
-
-    tabLinks.forEach(link => {
-      link.addEventListener('click', (e) => {
+    // Script untuk tab aktif
+    const tabs = document.querySelectorAll('.tab-link');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', function (e) {
         e.preventDefault();
-        tabLinks.forEach(l => l.classList.remove('active', 'fw-bold', 'text-muted'));
-        Object.values(tabContents).forEach(tab => tab.style.display = 'none');
-
-        const target = link.getAttribute('data-target');
-        link.classList.add('active', 'fw-bold');
-        tabContents[target].style.display = 'block';
+        tabs.forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
       });
     });
   </script>
