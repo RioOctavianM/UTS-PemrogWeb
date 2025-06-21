@@ -110,7 +110,6 @@
     document.getElementById('className').textContent = classId;
     document.getElementById('groupName').textContent = "Group: " + group;
 
-    // Simpan dan gunakan class code tetap per classId
     const codeKey = `classcode-${classId}`;
     let classCode = localStorage.getItem(codeKey);
     if (!classCode) {
