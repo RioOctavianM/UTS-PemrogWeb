@@ -1,117 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ClAssign</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="Assets/css/login.css">
-</head>
-<body>
-    <div class="container">
-        <hr style="width: 100%; margin: auto; transform: translateY(560px); height: 1px;">
-        <div class="row" style="height: 560px; margin: 20px;">
-            <!-- left-side -->
-            <div class="col">
-                <div class="row" style="margin-left: -50px; margin-top: 10px;">
-                    <div class="col" style="margin-left: -70px;">
-                        <h1 style="font-size: 20px; font-weight: 600;">
-                            ClAssign
-                        </h1>
-                        <hr style="width: 150px;">
-                        <p style="margin-top: -5px; font-size: small; font-weight: 600;">
-                            3rwork@classign.id
-                        </p>
-                    </div>
-                </div>
-                
-                <img src="Assets/img/Education, people learning new skills.png" width="400" style="transform: translate(70px) rotate(-25deg); margin-top: 80px;">
-            </div>
-            <!-- card form-login  -->
-            <div class="col">
-                <div class="row">
-                    <div class="col card-wrapper">
-                        <div class="card" >
-                            <div class="card-body">
-                                <h1 style="font-weight: 600; font-size: xx-large;">
-                                    ClAssign
-                                </h1>
-                                <p style="font-size: small; margin-top: 20px;">Welcome, make your assignment with ClAssign.</p>
-                                <div class="form-floating">
-                                    <input type="email" class="form-control" id="floatingInput" placeholder="email address">
-                                    <label for="floatingInput">email address</label>
-                                </div>
-                                <div class="form-floating">
-                                    <input type="password" class="form-control" id="floatingPassword" placeholder="password">
-                                    <label for="floatingPassword">password</label>
-                                </div>                                                                         
-                                <button class="btn btn-primary btn-lgn">Login</button>
-                                 <div class="container mt-1 pt-1">
-                                </div>
-                                <div class="d-flex justify-content-between align-items-center my-4">
-                                <button class="btn btn-outline-secondary" onclick="goBack()">
-                                <i class="bi bi-arrow-left-circle"></i> Back
-                                </button>
-                            </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <p class="text-muted small" style="text-align: center; margin-top: 0px;">
-                    <br />Copyright ©3rwork2025 |&nbsp;<a href="#">Privacy Policy</a>
-                </p>
-            </div>
-            <!-- rigth side -->
-            <div class="col">
-                <div class="row">
-                    <div class="col">
-                        <img src="Assets/img/Learning foreign languages.png" width="300" style="transform: translate(160px) rotate(50deg);">
-                    </div>
-                    <div class="col">
-                        <img src="Assets/img/Young man working on a laptop.png" width="400" style="transform: translate(-140px) rotateY(180deg); margin-top: -80px;">
-                    </div>
-                </div>
-            </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+    <style>
+      body {
+        font-family: "Poppins", sans-serif;
+      }
+    </style>
+    <title>Login</title>
+  </head>
+
+  <body style="background-image: url(/Assets/img/Perpustakaan_UISI_v2.jpg); background-position: center; background-size: cover; background-repeat: no-repeat">
+    <div class="container-fluid position-relative min-vh-100">
+      <div class="row lh-1">
+        <div class="my-4 text-white">
+          <p class="fw-semibold fs-5">ClAssign</p>
+          <hr class="rounded-4" style="width: 13rem; border: 1px solid; opacity: 1" />
+          <p>3rwork@classign.id</p>
         </div>
+      </div>
+
+      <!-- form -->
+      <div class="row justify-content-center">
+        <div class="col-sm-5" style="max-width: 500px">
+          <div class="card rounded-4 shadow-sm p-3 text-white" style="background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(3px)">
+            <div class="card-body">
+              <!-- Sign In -->
+              <div class="row" id="signin-form">
+                <div class="col">
+                  <div class="container text-center justify-content-center">
+                    <p class="small">ClAssign</p>
+                    <h2>Sign In</h2>
+                    <small>Lorem ipsum dolor sit amet consectetur adipisicing elit.</small>
+                    <div class="form-floating mb-3">
+                      <input type="email" class="form-control text-white" style="border: none; background: transparent; border-bottom: solid; border-radius: 0" id="signin-email" placeholder="name@example.com" required aria-label="Email" />
+                      <label for="signin-email" class="text-white fw-light;">Email</label>
+                      <i class="bi bi-envelope position-absolute top-50 end-0"></i>
+                    </div>
+                    <div class="form-floating mb-3">
+                      <input type="password" class="form-control text-white" style="border: none; background: transparent; border-bottom: solid; border-radius: 0"  id="signin-password" placeholder="password" required aria-label="Password" />
+                      <label for="signin-password" class="text-white fw-light">Password</label>
+                      <i class="bi bi-lock position-absolute top-50 end-0"></i>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="checkbox" value="" id="signin-check" />
+                      <label class="form-check-label" for="signin-check"> Remember Me </label>
+                    </div>
+                  </div>
+                  <div class="text-center">
+                    <button type="submit" class="btn btn-light w-100 my-3 rounded-5">Sign In</button>
+                  </div>
+                  <div class="text-center">
+                    <small class="text-wrap fw-light" style="width: 10rem; text-decoration: none">Don't have an account? <a class="text-white fw-semibold" href="#" onclick="toggleForms()">Sign Up</a></small>
+                  </div>
+                  <div>
+                    <button class="btn btn-outline-light my-2 rounded-3"><i class="bi bi-caret-left"></i></button>
+                  </div>
+                </div>
+              </div>
+              <!-- Sign Up -->
+              <div class="row d-none" id="signup-form">
+                <div class="col">
+                  <div class="container text-center justify-content-center">
+                    <p class="text-white small">ClAssign</p>
+                    <h2>Register</h2>
+                    <small>Lorem ipsum dolor sit amet consectetur adipisicing elit.</small>
+                    <div class="form-floating mb-3">
+                      <input type="email" class="form-control text-white" style="border: none; background: transparent; border-bottom: solid; border-radius: 0" id="signup-email" placeholder="name@example.com" required aria-label="Email" />
+                      <label for="signup-email" class="text-white fw-light;">Email</label>
+                      <i class="bi bi-envelope position-absolute top-50 end-0"></i>
+                    </div>
+                    <div class="form-floating mb-3">
+                      <input type="password" class="form-control text-white" style="border: none; background: transparent; border-bottom: solid; border-radius: 0" id="signup-password" placeholder="password" required aria-label="Password" />
+                      <label for="signup-password" class="text-white fw-light">Password</label>
+                      <i class="bi bi-lock position-absolute top-50 end-0"></i>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="checkbox" value="" id="signup-check" />
+                      <label class="form-check-label" for="signup-check"> Remember Me </label>
+                    </div>
+                  </div>
+                  <div class="text-center">
+                    <button type="submit" class="btn btn-light w-100 my-3 rounded-5">Sign Up</button>
+                  </div>
+                  <div class="text-center">
+                    <small class="text-wrap text-center fw-light" style="width: 10rem; text-decoration: none">Already have an account? <a class="text-white fw-semibold" href="#" onclick="toggleForms()">Sign In</a></small>
+                  </div>
+                  <div>
+                    <button class="btn btn-outline-light my-2 rounded-3"><i class="bi bi-caret-left"></i></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- copyright -->
+        </div>
+        <div class="row text-center mt-3">
+          <div class="col">
+            <p class="text-white small fw-light">Copyright @3rwork2025 | Privacy Policy</p>
+          </div>
+        </div>
+      </div>
     </div>
-</body>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const loginButton = document.querySelector(".btn-lgn");
-      const emailInput = document.getElementById("floatingInput");
-      const passwordInput = document.getElementById("floatingPassword");
-  
-      loginButton.addEventListener("click", function (event) {
-        event.preventDefault();
-  
-        const email = emailInput.value.trim();
-        const password = passwordInput.value.trim();
-        const selectedRole = localStorage.getItem("userRole");
-  
-        if (!email || !password) {
-          alert("Please fill in both email and password.");
-          return;
-        }
-  
-        if (!selectedRole) {
-          alert("Role not selected. Please go back to landing page.");
-          return;
-        }
-  
-        alert("Login successful!");
-  
-        if (selectedRole === "teacher") {
-          window.location.href = "Teacher/DashboardTeacher.html";
-        } else {
-          window.location.href = "Student/DashboardStudent.html";
-        }
-      });
-    });
-
-     function goBack() {
-   window.location.href = "index.html";
-  }
-  </script>    
+    <script>
+      function toggleForms() {
+        document.getElementById("signin-form").classList.toggle("d-none");
+        document.getElementById("signup-form").classList.toggle("d-none");
+      }
+    </script>
+  </body>
 </html>
